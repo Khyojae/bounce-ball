@@ -1,0 +1,70 @@
+import turtle     
+import random      
+import winsound    
+
+wn=turtle.Screen()      
+wn.setup(450,600)     
+wn.bgcolor('pink')  
+
+gameover=turtle.Turtle()   
+gameover.up()  
+gameover.ht()   
+
+score=0            
+ball=turtle.Turtle()    
+ball.shape('circle') 
+ball.shapesize(5)
+ball.color('black')
+ball.up()               
+ball.speed(0)    
+ball.goto(0, 200)      
+ball.dy=1              
+ball.dx=1
+
+
+record=turtle.Turtle()     
+record.up()  
+record.ht()     
+record.goto(0,200)  
+record.write("score:%d" % score,False,"center",("", 35) )
+
+gravity=1     
+
+
+def randommove(x,y):        
+   global score
+   score +=1      
+   record.clear()         
+   record.write("score:%d" % score,False,"center",("", 35) ) 
+   ball.dx=random.randint(-10,10)     
+   ball.dy=random.randint(0,20)
+   
+
+while True:
+    ball.onclick(randommove)    
+    ball.dy -=gravity           
+    ball.sety(ball.ycor()+ball.dy)   
+    ball.setx(ball.xcor()+ball.dx)
+
+
+    if ball.xcor() > 200:         
+        ball.dx *= -1         
+        winsound.Beep(40,60)  
+    if ball.xcor() < -200:
+        ball.dx *= -1
+        winsound.Beep(40,60) 
+   
+    if ball.ycor() <= -270:             
+      turtle.clearscreen()   
+      wn.bgcolor('pink')       
+
+      gameover.goto(0,40)     
+      gameover.write("Game over" ,False,"center",("", 35) )
+      
+      record.goto(0,-20)  
+      record.write("score:%d" % score,False,"center",("", 35) ) 
+
+      
+   
+
+      
